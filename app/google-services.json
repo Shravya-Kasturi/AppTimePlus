@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:905175220531:android:8b237b99222ff8de",
         "android_client_info": {
-          "package_name": "com.example.bottombar.sample"
+          "package_name": "com.vardhan.bottombar.sample"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "905175220531-5pfvqfbsr5rvl8d5e2s0mtl3tt8p9j7b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.bottombar.sample",
+            "package_name": "com.vardhan.bottombar.sample",
             "certificate_hash": "fae419ed9703c21518dcf641763ed291afea26fe"
           }
         },

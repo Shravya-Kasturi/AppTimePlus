@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bgblack"
-    tools:context="com.example.bottombar.sample.CheckUser">
+    tools:context="com.vardhan.bottombar.sample.CheckUser">
 
     <EditText
         android:id="@+id/usernamec"

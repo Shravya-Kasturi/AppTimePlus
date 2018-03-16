@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.bottombar.sample">
+    package="com.vardhan.bottombar.sample">
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -13,14 +13,14 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
-        android:name=".SampleApp"
+        android:name="com.vardhan.bottombar.sample.SampleApp"
         android:allowBackup="true"
         android:icon="@mipmap/iconlogo"
         android:label="App Time Plus"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.vardhan.bottombar.sample.MainActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,25 +29,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FiveColorChangingTabsActivity"
+            android:name="com.vardhan.bottombar.sample.FiveColorChangingTabsActivity"
             android:theme="@style/AppTheme.TransNav" />
-        <activity android:name=".AppPage" />
-        <activity android:name=".Friends" />
+        <activity android:name="com.vardhan.bottombar.sample.AppPage" />
+        <activity android:name="com.vardhan.bottombar.sample.Friends" />
 
-        <service android:name=".BlockServ" />
+        <service android:name="com.vardhan.bottombar.sample.BlockServ" />
 
-        <receiver android:name=".RestartService">
+        <receiver android:name="com.vardhan.bottombar.sample.RestartService">
             <intent-filter>
                 <action android:name="RestartService" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".SignUp" />
-        <activity android:name=".CheckUser" />
-        <activity android:name=".FrList" />
-        <activity android:name=".ChangeP" />
-        <activity android:name=".About" />
-        <activity android:name=".UploadPic" />
+        <activity android:name="com.vardhan.bottombar.sample.SignUp" />
+        <activity android:name="com.vardhan.bottombar.sample.CheckUser" />
+        <activity android:name="com.vardhan.bottombar.sample.FrList" />
+        <activity android:name="com.vardhan.bottombar.sample.ChangeP" />
+        <activity android:name="com.vardhan.bottombar.sample.About" />
+        <activity android:name="com.vardhan.bottombar.sample.UploadPic" />
     </application>
 
 </manifest>
