@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@mipmap/bgblack"
+    android:layout_height="match_parent"
+    tools:context="com.example.bottombar.sample.SignUp">
+
+    <EditText
+        android:id="@+id/emails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/passs"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="106dp"
+        android:ems="10"
+        android:hint="Email Id"
+        android:inputType="textPersonName"
+        android:shadowColor="#ffffff"
+        android:textColor="#ffffff"
+        android:textColorHighlight="#ffffff"
+        android:textColorHint="#ffffff"
+        android:textColorLink="#ffffff" />
+
+    <EditText
+        android:id="@+id/passs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/emails"
+        android:layout_marginTop="239dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:shadowColor="#ffffff"
+        android:textColor="#ffffff"
+        android:textColorHighlight="#ffffff"
+        android:textColorHint="#ffffff"
+        android:textColorLink="#ffffff" />
+
+    <Button
+        android:id="@+id/logins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passs"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:background="@mipmap/signupb"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/alreadys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logins"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Already have an account?"
+        android:textColor="#ffffff" />
+</RelativeLayout>
