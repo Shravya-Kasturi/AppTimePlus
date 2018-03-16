@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@mipmap/bgblack"
     android:layout_height="match_parent"
-    tools:context="com.vardhan.bottombar.sample.SignUp">
+    tools:context="com.wise.bottombar.sample.SignUp">
 
     <EditText
         android:id="@+id/emails"

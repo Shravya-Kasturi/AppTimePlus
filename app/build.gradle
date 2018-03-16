@@ -4,7 +4,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "com.vardhan.bottombar.sample"
+        applicationId "com.wise.bottombar.sample"
         minSdkVersion 22
         targetSdkVersion 22
         versionCode 1

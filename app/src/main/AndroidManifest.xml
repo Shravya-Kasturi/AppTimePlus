@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.vardhan.bottombar.sample">
+    package="com.wise.bottombar.sample">
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -13,14 +13,14 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
-        android:name="com.vardhan.bottombar.sample.SampleApp"
+        android:name="com.wise.bottombar.sample.SampleApp"
         android:allowBackup="true"
         android:icon="@mipmap/iconlogo"
         android:label="App Time Plus"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.vardhan.bottombar.sample.MainActivity"
+            android:name="com.wise.bottombar.sample.MainActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,25 +29,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vardhan.bottombar.sample.FiveColorChangingTabsActivity"
+            android:name="com.wise.bottombar.sample.FiveColorChangingTabsActivity"
             android:theme="@style/AppTheme.TransNav" />
-        <activity android:name="com.vardhan.bottombar.sample.AppPage" />
-        <activity android:name="com.vardhan.bottombar.sample.Friends" />
+        <activity android:name="com.wise.bottombar.sample.AppPage" />
+        <activity android:name="com.wise.bottombar.sample.Friends" />
 
-        <service android:name="com.vardhan.bottombar.sample.BlockServ" />
+        <service android:name="com.wise.bottombar.sample.BlockServ" />
 
-        <receiver android:name="com.vardhan.bottombar.sample.RestartService">
+        <receiver android:name="com.wise.bottombar.sample.RestartService">
             <intent-filter>
                 <action android:name="RestartService" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.vardhan.bottombar.sample.SignUp" />
-        <activity android:name="com.vardhan.bottombar.sample.CheckUser" />
-        <activity android:name="com.vardhan.bottombar.sample.FrList" />
-        <activity android:name="com.vardhan.bottombar.sample.ChangeP" />
-        <activity android:name="com.vardhan.bottombar.sample.About" />
-        <activity android:name="com.vardhan.bottombar.sample.UploadPic" />
+        <activity android:name="com.wise.bottombar.sample.SignUp" />
+        <activity android:name="com.wise.bottombar.sample.CheckUser" />
+        <activity android:name="com.wise.bottombar.sample.FrList" />
+        <activity android:name="com.wise.bottombar.sample.ChangeP" />
+        <activity android:name="com.wise.bottombar.sample.About" />
+        <activity android:name="com.wise.bottombar.sample.UploadPic" />
     </application>
 
 </manifest>
