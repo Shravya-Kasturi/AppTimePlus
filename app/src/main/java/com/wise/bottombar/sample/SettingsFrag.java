@@ -49,6 +49,20 @@ public class SettingsFrag extends Fragment {
     ArrayList<String> ka;
     StorageReference storageReference;
     TextView chooseapp;
+    ImageView fbi,whatsappi,instai, hikei, chromei, twitteri, youtubei;
+    TextView listtext;
+
+    void setOpacity()
+    {
+        fbi.getBackground().setAlpha(255);
+        whatsappi.getBackground().setAlpha(255);
+        hikei.getBackground().setAlpha(255);
+        instai.getBackground().setAlpha(255);
+        twitteri.getBackground().setAlpha(255);
+        youtubei.getBackground().setAlpha(255);
+        chromei.getBackground().setAlpha(255);
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -57,6 +71,7 @@ public class SettingsFrag extends Fragment {
         LayoutInflater inflator = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.actionbar, null);
         tb.addView(v);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, autofrnds);
         AutoCompleteTextView textView = (AutoCompleteTextView) v
                 .findViewById(R.id.editText1);
@@ -107,6 +122,7 @@ public class SettingsFrag extends Fragment {
         ka=new ArrayList<String>();
         imk=new ArrayList<ImageView>();
         chooseapp=(TextView)view.findViewById(R.id.chooseapp);
+        listtext=(TextView)view.findViewById(R.id.listtext);
         br=new ArrayList<String>();
         piclogo=new ArrayList<Integer>();
         piclogo.add(R.mipmap.fbbadge);
@@ -144,13 +160,54 @@ public class SettingsFrag extends Fragment {
         tb.setTitle("Friends");
         tb.setLogo(R.mipmap.friends);
         ((AppCompatActivity) getActivity()).setSupportActionBar(tb);
-        ImageView fbi=(ImageView)view.findViewById(R.id.fbi);
-        ImageView whatsappi=(ImageView)view.findViewById(R.id.whatsappi);
-        ImageView instai=(ImageView)view.findViewById(R.id.instai);
-        ImageView hikei=(ImageView)view.findViewById(R.id.hikei);
-        ImageView chromei=(ImageView)view.findViewById(R.id.chromei);
-        ImageView twitteri=(ImageView)view.findViewById(R.id.twitteri);
-        ImageView youtubei=(ImageView)view.findViewById(R.id.youtubei);
+        fbi=(ImageView)view.findViewById(R.id.fbi);
+        whatsappi=(ImageView)view.findViewById(R.id.whatsappi);
+        instai=(ImageView)view.findViewById(R.id.instai);
+        hikei=(ImageView)view.findViewById(R.id.hikei);
+        chromei=(ImageView)view.findViewById(R.id.chromei);
+        twitteri=(ImageView)view.findViewById(R.id.twitteri);
+        youtubei=(ImageView)view.findViewById(R.id.youtubei);
+      /*  setOpacity();
+        whatsappi.getBackground().setAlpha(128);
+        chooseapp.setText("Whatsapp");
+        databaseReference=FirebaseDatabase.getInstance().getReference("users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                databaseReference.removeEventListener(this);
+                ArrayList<String> fr=new ArrayList<String>();
+                ArrayList<String> ur=new ArrayList<String>();
+                for(DataSnapshot d:dataSnapshot.child(FirebaseAuth.getInstance().getUid()).child("friends").getChildren())
+                {
+                    fr.add(d.getValue(String.class));
+                }
+                ArrayList<String> tr=new ArrayList<String>();
+                br.clear();
+                for(String s:fr){
+                    ur.add(dataSnapshot.child(s).child("username").getValue(String.class));
+                    tr.add(dataSnapshot.child(s).child("times").child("1").getValue(String.class));
+                    br.add(dataSnapshot.child(s).child("badges").child("1").getValue(String.class));
+                }
+                arrayList.clear();
+                for(int z=0;z<tr.size();z++){
+                    EachAppItem k = new EachAppItem(R.mipmap.aboy, ur.get(z), tr.get(z),br.get(z));
+                    arrayList.add(k);
+                }
+                if (arrayList.size() > 0) {
+                    appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(1));
+                    listView.setAdapter(appListAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        */
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -196,6 +253,8 @@ public class SettingsFrag extends Fragment {
         fbi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                fbi.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Facebook");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -223,7 +282,12 @@ public class SettingsFrag extends Fragment {
                         }
                         if (arrayList.size() > 0) {
                             appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                           listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -238,6 +302,8 @@ public class SettingsFrag extends Fragment {
         whatsappi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                whatsappi.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Whatsapp");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -264,8 +330,13 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(1));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -280,6 +351,8 @@ public class SettingsFrag extends Fragment {
         instai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                instai.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Instagram");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -306,8 +379,13 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(2));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -323,6 +401,8 @@ public class SettingsFrag extends Fragment {
         hikei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                hikei.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Hike");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -349,8 +429,13 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(5));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -368,6 +453,8 @@ public class SettingsFrag extends Fragment {
         chromei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                chromei.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Chrome");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -395,8 +482,13 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(4));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -412,6 +504,8 @@ public class SettingsFrag extends Fragment {
         twitteri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                twitteri.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("Twitter");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -438,8 +532,13 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(3));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 
@@ -454,6 +553,8 @@ public class SettingsFrag extends Fragment {
         youtubei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOpacity();
+                youtubei.getBackground().setAlpha(128);
                 qw=v.getTag().toString();
                 chooseapp.setText("You Tube");
                 databaseReference=FirebaseDatabase.getInstance().getReference("users");
@@ -481,8 +582,13 @@ public class SettingsFrag extends Fragment {
                         }
 
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(6));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            listtext.setText("");
                             listView.setAdapter(appListAdapter);
+                        }
+                        else
+                        {
+                            listtext.setText("You dont have friends yet.\nPlease search for friends and send requests.\nAccept pending requests from the top right corner.");
                         }
                     }
 

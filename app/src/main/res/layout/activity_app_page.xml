@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="#edf4fb"
     android:layout_height="match_parent">
 
 
@@ -69,8 +70,20 @@
     <ListView
         android:id="@+id/app_stats"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/app_stats"
+        android:textColor="#cc00"
+        android:text="Set limit to app and the app closes after the prescribed time. Come and change time here"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        android:textStyle="bold" />
 
 </RelativeLayout>

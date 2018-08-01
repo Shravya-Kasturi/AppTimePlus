@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#edf4fb"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -38,9 +39,39 @@
     <ListView
         android:id="@+id/apps_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="327dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/meter" />
+        android:layout_below="@+id/meter"
+        android:layout_marginTop="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/meter"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/NameB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Name"
+            android:textColor="#ffff"
+            android:background="#FF8c00"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/TimeB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#FF8C00"
+            android:background="#edf4fb"
+            android:text="Time"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </RelativeLayout>

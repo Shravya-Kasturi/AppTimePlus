@@ -2,6 +2,7 @@ package com.wise.bottombar.sample;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,11 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        RelativeLayout your_Layout = (RelativeLayout) findViewById(R.id.signuplayout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) your_Layout.getBackground();
+        animationDrawable.setEnterFadeDuration(1000);
+        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.start();
         user=(EditText)findViewById(R.id.emails);
         pass=(EditText)findViewById(R.id.passs);
         signup=(Button)findViewById(R.id.logins);

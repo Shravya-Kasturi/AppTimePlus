@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#edf4fb"
+    tools:context="com.wise.bottombar.sample.UploadPic">
+
+
+    <TextView
+        android:id="@+id/welcomepf"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar4"
+        android:text="Kat"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="#006600"
+        android:textSize="15pt"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgViewf"
+        android:layout_width="150dp"
+        android:layout_height="145dp"
+        android:layout_below="@+id/toolbar4f"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/bboy" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar4f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#34b7f1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <ListView
+        android:id="@+id/mybadgesf"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:layout_above="@+id/blockbf"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/blockbf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#cc0000"
+        android:text="Block"
+        android:textColor="#ffff"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

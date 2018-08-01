@@ -90,7 +90,7 @@ public class ViewFrag extends android.support.v4.app.Fragment {
         list.add(s);
         s=new Sett(R.mipmap.editprofile,"Change Password");
         list.add(s);
-        s=new Sett(R.mipmap.block,"Block");
+        s=new Sett(R.mipmap.friends,"Friends");
         list.add(s);
         s=new Sett(R.mipmap.about,"About");
         list.add(s);

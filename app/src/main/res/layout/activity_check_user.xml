@@ -2,18 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/checklayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bgblack"
+    android:background="@drawable/background"
     tools:context="com.wise.bottombar.sample.CheckUser">
 
     <EditText
         android:id="@+id/usernamec"
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/fullnamec"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="61dp"
+        android:backgroundTint="#ffffff"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
@@ -22,11 +24,12 @@
 
     <EditText
         android:id="@+id/fullnamec"
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/okc"
         android:layout_alignStart="@+id/usernamec"
         android:layout_marginBottom="65dp"
+        android:backgroundTint="#ffffff"
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
@@ -35,10 +38,14 @@
 
     <Button
         android:id="@+id/okc"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="115dp"
-        android:text="submit" />
+        android:background="@drawable/button"
+        android:text="submit"
+        android:textColor="#0099CC"
+        android:textSize="7.5pt"
+        android:textStyle="bold" />
 </RelativeLayout>

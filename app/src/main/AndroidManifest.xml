@@ -6,21 +6,20 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="com.wise.bottombar.sample.SampleApp"
+        android:name=".SampleApp"
         android:allowBackup="true"
         android:icon="@mipmap/iconlogo"
         android:label="App Time Plus"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.wise.bottombar.sample.MainActivity"
+            android:name=".SplashScreen" android:screenOrientation="portrait"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,25 +28,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wise.bottombar.sample.FiveColorChangingTabsActivity"
+            android:name=".FiveColorChangingTabsActivity" android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransNav" />
-        <activity android:name="com.wise.bottombar.sample.AppPage" />
-        <activity android:name="com.wise.bottombar.sample.Friends" />
+        <activity android:name=".AppPage" />
+        <activity android:name=".Friends" />
 
-        <service android:name="com.wise.bottombar.sample.BlockServ" />
+        <service android:name=".BlockServ" />
 
-        <receiver android:name="com.wise.bottombar.sample.RestartService">
+        <receiver android:name=".RestartService">
             <intent-filter>
                 <action android:name="RestartService" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.wise.bottombar.sample.SignUp" />
-        <activity android:name="com.wise.bottombar.sample.CheckUser" />
-        <activity android:name="com.wise.bottombar.sample.FrList" />
-        <activity android:name="com.wise.bottombar.sample.ChangeP" />
-        <activity android:name="com.wise.bottombar.sample.About" />
-        <activity android:name="com.wise.bottombar.sample.UploadPic" />
+        <activity android:name=".SignUp" android:screenOrientation="portrait"/>
+        <activity android:name=".CheckUser" android:screenOrientation="portrait"/>
+        <activity android:name=".FrList" android:screenOrientation="portrait"/>
+        <activity android:name=".ChangeP" android:screenOrientation="portrait"/>
+        <activity android:name=".About" android:screenOrientation="portrait"/>
+        <activity android:name=".UploadPic" android:screenOrientation="portrait"/>
+        <activity android:name=".FriendProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

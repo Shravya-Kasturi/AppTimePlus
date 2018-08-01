@@ -2,6 +2,7 @@ package com.wise.bottombar.sample;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class FrList extends AppCompatActivity {
     DatabaseReference databaseReference;
     ArrayList<String> fr,ar;
+    static String frkey=null;
     ListView l;
     String po;
     android.support.v7.widget.Toolbar th;
@@ -67,35 +69,12 @@ public class FrList extends AppCompatActivity {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         databaseReference.removeEventListener(this);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(FrList.this);
-                        builder.setCancelable(true);
-                        builder.setTitle("Block");
-                        builder.setMessage("Remove from Followers list?");
-                        builder.setPositiveButton("Yes",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        for (DataSnapshot d:dataSnapshot.getChildren()){
-                                            if(d.child("username").getValue(String.class).equals(u)){
-                                                po=d.child("uid").getValue(String.class);
-                                            }
-                                        }
-                                        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("friends").child(po).removeValue();
-                                        fr.remove(position);
-                                        ar.remove(position);
-                                        ((BaseAdapter) l.getAdapter()).notifyDataSetChanged();
-                                        Toast.makeText(FrList.this,"Removed Sucessfully!",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            if (d.child("username").getValue(String.class).equals(u)) {
+                                frkey = d.child("uid").getValue(String.class);
                             }
-                        });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        }
+                        startActivity(new Intent(FrList.this,FriendProfile.class));
                     }
 
                     @Override
@@ -105,6 +84,7 @@ public class FrList extends AppCompatActivity {
                 });
             }
         });
+
     }
     @Override
     public boolean onSupportNavigateUp() {

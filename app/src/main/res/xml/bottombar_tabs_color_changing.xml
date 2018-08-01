@@ -4,20 +4,20 @@
         id="@+id/homes"
         icon="@mipmap/homelogo"
         title="Home"
-        barColorWhenSelected="@color/colorAccent" />
+        barColorWhenSelected="#00c5cd" />
     <tab
         id="@+id/stats"
         icon="@mipmap/statlogo"
         title="Stats"
-        barColorWhenSelected="#5D4037" />
+        barColorWhenSelected="#ffa500" />
     <tab
         id="@+id/settings"
         icon="@mipmap/viewlogo"
         title="View"
-        barColorWhenSelected="#7B1FA2" />
+        barColorWhenSelected="#115801" />
     <tab
         id="@+id/views"
         icon="@mipmap/settingslogo"
         title="Settings"
-        barColorWhenSelected="#FF5252" />
+        barColorWhenSelected="#b20000" />
 </tabs>

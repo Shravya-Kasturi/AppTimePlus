@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loginlayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@mipmap/bgblack"
+    android:background="@drawable/background"
     android:padding="16dp"
     tools:ignore="HardcodedText">
 
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="wrap_content"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:shadowColor="#ffffff"
         android:textColorHighlight="#ffffff"
+        android:backgroundTint="#ffffff"
         android:textColorLink="#ffffff"
         android:layout_marginTop="108dp"
         android:textColor="#ffffff"
         android:textColorHint="#ffffff"
         android:ems="10"
         android:hint="Email Id"
+        android:textSize="9pt"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/pass"
-        android:layout_width="wrap_content"
-        android:shadowColor="#ffffff"
-        android:textColorHighlight="#ffffff"
-        android:textColorLink="#ffffff"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:textColorHint="#ffffff"
-        android:textColor="#ffffff"
         android:layout_alignStart="@+id/email"
         android:layout_below="@+id/email"
+        android:backgroundTint="#ffffff"
         android:layout_marginTop="56dp"
-        android:hint="password"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:textSize="9pt"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:shadowColor="#ffffff"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:textColorHighlight="#ffffff"
+        android:textColorHint="#ffffff"
+        android:textColorLink="#ffffff"
+        tools:singleLine="false" />
 
     <Button
         android:id="@+id/loginbut"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pass"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:background="@mipmap/loginb"
         android:layout_marginTop="39dp"
+        android:background="@drawable/button"
+        android:textColor="#0099CC"
+        android:textSize="7.5pt"
+        android:text="Login"
+        android:textStyle="bold"
          />
 
     <TextView
@@ -59,19 +69,54 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginbut"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
         android:layout_marginTop="18dp"
-        android:text="Forgot Password?" />
+        android:text="Forgot Password?"
+        android:textColor="#ffffff"
+        android:textSize="8pt"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/already"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/forgotpass"
-        android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:text="Dont have an account?" />
+        android:text="Dont have an account? Sign Up"
+        android:textColor="#ffffff"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal">
+
+        <pl.droidsonroids.gif.GifTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/hourglasslogo"
+            />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/email"
+        android:layout_toStartOf="@+id/email"
+        app:srcCompat="@mipmap/emaillogo" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/pass"
+        android:layout_toStartOf="@+id/email"
+        app:srcCompat="@mipmap/passwordlogo" />
 
 
 </RelativeLayout>

@@ -18,9 +18,11 @@
 package com.wise.bottombar.sample;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -34,11 +36,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +58,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -70,12 +77,14 @@ public class HomeFrag extends Fragment {
     ArrayList<String> timew;
     String PackName;
     String timealpsed,lastseen;
-
+    Button NameB,TimeB;
     ArrayList<Integer> challt;
     long tot=0;
+    int sortF=0;
     int deg=0;
     ArrayList<String> sysapps;
     ArrayList<String> datatime;
+    ImageView meter;
     TextView alr;
     ArrayList<String> datap;
     ImageView imageView;
@@ -87,25 +96,29 @@ public class HomeFrag extends Fragment {
     SharedPreferences.Editor editor1;
     static int pr=0;
     long totalt=0;
+    long totd=0;
     List<UsageStats> queryUsageStats;
     List<UsageStats> queryUsageStatsWeekly;
     @SuppressLint("ValidFragment")
     HomeFrag(){}
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.home_frag,container,false);
-        imageView=(ImageView)view.findViewById(R.id.needle);
-        final String MyPREFERENCES = "Weekly" ;
-        final String MyPREFERENCES1 = "Monthly" ;
+        View view = inflater.inflate(R.layout.home_frag, container, false);
+        imageView = (ImageView) view.findViewById(R.id.needle);
+        final String MyPREFERENCES = "Weekly";
+        final String MyPREFERENCES1 = "Monthly";
+        NameB = (Button) (view.findViewById(R.id.NameB));
+        TimeB = (Button) (view.findViewById(R.id.TimeB));
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         sharedpreferences1 = getActivity().getSharedPreferences(MyPREFERENCES1, Context.MODE_PRIVATE);
-        alr=(TextView)view.findViewById(R.id.comment);
+        alr = (TextView) view.findViewById(R.id.comment);
         editor = sharedpreferences.edit();
         editor1 = sharedpreferences1.edit();
-        timew=new ArrayList<>();
-        challt=new ArrayList<Integer>();
+        timew = new ArrayList<>();
+        challt = new ArrayList<Integer>();
         challt.add(360);
         challt.add(360);
         challt.add(360);
@@ -113,12 +126,78 @@ public class HomeFrag extends Fragment {
         challt.add(360);
         challt.add(360);
         challt.add(360);
+        meter=(ImageView)view.findViewById(R.id.meter);
+        meter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_layout, null);
+
+                TextView title = (TextView) view.findViewById(R.id.title);
+                ImageButton imageButton = (ImageButton) view.findViewById(R.id.image);
+                TextView alertText=(TextView)view.findViewById(R.id.alertText);
+
+                title.setText(alr.getText().toString());
+                String s=String.valueOf((totd / (60 * 60)) % 24);
+                String alertB="ok",alertN="Not Ok";
+                switch(alr.getText().toString())
+                {
+                    case "Efficient Zone":
+                        imageButton.setImageResource(R.mipmap.thuglife);
+                       alertText.setText("Wow! Your total usuage is "+ s+"hrs only. Kudos!");
+                       alertB="Thank You";
+                       alertN="Thats Me";
+                        break;
+
+                    case "Safe Zone":
+                        imageButton.setImageResource(R.mipmap.avgtimeemoji);
+                        alertText.setText("You are almost there. You total usuage is "+ s+"hrs");
+                        alertB="Ok";
+                        alertN="Fine";
+                        break;
 
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("users");
-        badge=new ArrayList<String>();
-        packnames=new ArrayList<String>();
-        datap=new ArrayList<String>();
+                    case "Danger Zone":
+                        imageButton.setImageResource(R.mipmap.moretimeemoji);
+                        alertText.setText("Have some self control. Your total usuage is "+ s+"hrs");
+                        alertB="Sorry";
+                        alertN="Whatever";
+                        break;
+
+                        default:
+                            imageButton.setImageResource(R.mipmap.thuglife);
+                            alertText.setText("Wow! Your total usuage is "+ s+"hrs only. Kudos!");
+                            break;
+                }
+
+
+
+                builder.setPositiveButton(alertB, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+
+                builder.setNeutralButton(alertN, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.setView(view);
+                builder.show();
+
+
+            }
+        });
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        badge = new ArrayList<String>();
+        packnames = new ArrayList<String>();
+        datap = new ArrayList<String>();
         datap.add("com.facebook.katana");
         datap.add("com.whatsapp");
         datap.add("com.instagram.android");
@@ -126,12 +205,12 @@ public class HomeFrag extends Fragment {
         datap.add("com.android.chrome");
         datap.add("com.bsb.hike");
         datap.add("com.google.android.youtube");
-        datatime=new ArrayList<String>();
-        for(int q=0;q<7;q++) {
+        datatime = new ArrayList<String>();
+        for (int q = 0; q < 7; q++) {
             datatime.add("NA");
             timew.add(String.valueOf(0));
         }
-        sysapps=new ArrayList<String>();
+        sysapps = new ArrayList<String>();
         sysapps.add("com.google.android.youtube");
         sysapps.add("com.android.chrome");
         sysapps.add("com.google.android.apps.photos");
@@ -143,40 +222,39 @@ public class HomeFrag extends Fragment {
         sysapps.add("com.google.android.music");
         sysapps.add("com.google.android.apps.maps");
         sysapps.add("com.google.android.contacts");
-        Intent se=new Intent(getActivity(),BlockServ.class);
+        Intent se = new Intent(getActivity(), BlockServ.class);
         getActivity().startService(se);
-        @SuppressLint("WrongConstant") final UsageStatsManager mUsageStatsManager=(UsageStatsManager)getContext().getSystemService("usagestats");
+        @SuppressLint("WrongConstant") final UsageStatsManager mUsageStatsManager = (UsageStatsManager) getContext().getSystemService("usagestats");
 
         final long currentTime = System.currentTimeMillis();
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, -1);
         final long beginTime = cal.getTimeInMillis();
-        queryUsageStats=mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, cal.getTimeInMillis(), currentTime);
-        if(queryUsageStats==null||queryUsageStats.isEmpty())
-        {
+        queryUsageStats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, cal.getTimeInMillis(), currentTime);
+        if (queryUsageStats == null || queryUsageStats.isEmpty()) {
             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
         }
 
 
-        final ListView userInstalledApps = (ListView)view.findViewById(R.id.apps_list);
+        final ListView userInstalledApps = (ListView) view.findViewById(R.id.apps_list);
 
         final List<AppList> installedApps = getInstalledApps();
         Date now = new Date();
         Calendar calnow = Calendar.getInstance();
         calnow.setTime(now);
-        editor.putString(String.valueOf(calnow.get(Calendar.DAY_OF_WEEK)),String.valueOf(tot));
-        Log.d("abc",String.valueOf(calnow.get(Calendar.DAY_OF_WEEK))+" "+String.valueOf(calnow.get(Calendar.DAY_OF_MONTH))+" "+String.valueOf(tot));
+        editor.putString(String.valueOf(calnow.get(Calendar.DAY_OF_WEEK)), String.valueOf(tot));
+        Log.d("abc", String.valueOf(calnow.get(Calendar.DAY_OF_WEEK)) + " " + String.valueOf(calnow.get(Calendar.DAY_OF_MONTH)) + " " + String.valueOf(tot));
         editor.commit();
-        editor1.putString(String.valueOf(calnow.get(Calendar.DAY_OF_MONTH)),String.valueOf(tot));
+        editor1.putString(String.valueOf(calnow.get(Calendar.DAY_OF_MONTH)), String.valueOf(tot));
         editor1.commit();
-        tot=tot/360;
-        if(tot>=90){
-            deg=(int)((tot-90));
-            if(tot>=90)
-                deg=180;
-        }
-        else{
-            deg=(int)((90-tot)*-1);
+        totd=tot;
+        tot = tot / 360;
+        if (tot >= 90) {
+            deg = (int) ((tot - 90));
+            if (tot >= 90)
+                deg = 180;
+        } else {
+            deg = (int) ((90 - tot) * -1);
         }
 
         RotateAnimation rotateAnim = new RotateAnimation(0.0f, deg,
@@ -187,29 +265,27 @@ public class HomeFrag extends Fragment {
         imageView.setAnimation(rotateAnim);
         rotateAnim.start();
 
-        if(tot<=50){
-            alr.setText("Poor Zone");
+        if (tot <= 50) {
+            alr.setText("Efficient Zone");
             alr.setTextColor(Color.BLUE);
-        }
-        else if(tot>=50 && tot<=130){
+        } else if (tot >= 50 && tot <= 130) {
             alr.setText("Safe Zone");
             alr.setTextColor(Color.GREEN);
-        }
-        else{
+        } else {
             alr.setText("Danger Zone");
             alr.setTextColor(Color.RED);
         }
 
-        AppAdapter installedAppAdapter = new AppAdapter(getActivity(), installedApps);
+        final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), installedApps);
         userInstalledApps.setAdapter(installedAppAdapter);
         userInstalledApps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                AppList a=installedApps.get(pos);
-                Appname=a.getName();
-                Appicon=a.getIcon();
-                pr=(Integer.parseInt(a.getTime().substring(12,14))*60)+Integer.parseInt(a.getTime().substring(15,17));
-                packn=a.getPack();
+                AppList a = installedApps.get(pos);
+                Appname = a.getName();
+                Appicon = a.getIcon();
+                pr = (Integer.parseInt(a.getTime().substring(12, 14)) * 60) + Integer.parseInt(a.getTime().substring(15, 17));
+                packn = a.getPack();
                 Intent in = new Intent(getActivity(), AppPage.class);
                 startActivity(in);
 
@@ -221,22 +297,19 @@ public class HomeFrag extends Fragment {
         final Calendar calWeekly = Calendar.getInstance();
         calWeekly.add(Calendar.DAY_OF_WEEK, -7);
         final long beginTimeWeekly = calWeekly.getTimeInMillis();
-        queryUsageStatsWeekly=mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, cal.getTimeInMillis(), currentTimeWeekly);
-        if(queryUsageStatsWeekly==null||queryUsageStatsWeekly.isEmpty())
-        {
+        queryUsageStatsWeekly = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, cal.getTimeInMillis(), currentTimeWeekly);
+        if (queryUsageStatsWeekly == null || queryUsageStatsWeekly.isEmpty()) {
             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
         }
-        if(calWeekly.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) {
+        if (calWeekly.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     databaseReference.removeEventListener(this);
-                    if(dataSnapshot.child(FirebaseAuth.getInstance().getUid()).child("sunday").getValue(String.class).equals("0"))
-                    {
+                    if (dataSnapshot.child(FirebaseAuth.getInstance().getUid()).child("sunday").getValue(String.class).equals("0")) {
                         getInstalledAppsWeekly();
                         databaseReference.child(FirebaseAuth.getInstance().getUid()).child("sunday").setValue("1");
-                    }
-                    else{
+                    } else {
 
                     }
                 }
@@ -248,11 +321,42 @@ public class HomeFrag extends Fragment {
             });
 
 
-        }
-        else{
+        } else {
             databaseReference.child(FirebaseAuth.getInstance().getUid()).child("sunday").setValue("0");
         }
 
+        TimeB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortF=0;
+                tot=0;
+                NameB.setTextColor(Color.parseColor("#ffffff"));
+                NameB.setBackgroundColor(Color.parseColor("#FF8c00"));
+                TimeB.setTextColor(Color.parseColor("#FF8c00"));
+                TimeB.setBackgroundColor(Color.parseColor("#edf4fb"));
+                final List<AppList> TimeList = getInstalledApps();
+                installedAppAdapter.notifyDataSetChanged();
+                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), TimeList);
+                userInstalledApps.setAdapter(installedAppAdapter);
+            }
+        });
+
+        NameB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortF=1;
+                tot=0;
+               TimeB.setTextColor(Color.parseColor("#ffffff"));
+               TimeB.setBackgroundColor(Color.parseColor("#FF8c00"));
+                NameB.setTextColor(Color.parseColor("#FF8c00"));
+                NameB.setBackgroundColor(Color.parseColor("#edf4fb"));
+                installedAppAdapter.notifyDataSetChanged();
+                final List<AppList> NameList = getInstalledApps();
+                installedAppAdapter.notifyDataSetChanged();
+                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), NameList);
+                userInstalledApps.setAdapter(installedAppAdapter);
+            }
+        });
         return view;
     }
 
@@ -260,12 +364,14 @@ public class HomeFrag extends Fragment {
     private List<AppList> getInstalledApps() {
         List<AppList> res = new ArrayList<AppList>();
         List<PackageInfo> packs = getActivity().getPackageManager().getInstalledPackages(0);
-        Collections.sort(packs,new Comparator<PackageInfo>() {
-            @Override
-            public int compare(PackageInfo s1, PackageInfo s2) {
-                return s1.applicationInfo.loadLabel(getActivity().getPackageManager()).toString().compareToIgnoreCase(s2.applicationInfo.loadLabel(getActivity().getPackageManager()).toString());
-            }
-        });
+        if(sortF==1) {
+            Collections.sort(packs, new Comparator<PackageInfo>() {
+                @Override
+                public int compare(PackageInfo s1, PackageInfo s2) {
+                    return s1.applicationInfo.loadLabel(getActivity().getPackageManager()).toString().compareToIgnoreCase(s2.applicationInfo.loadLabel(getActivity().getPackageManager()).toString());
+                }
+            });
+        }
         for (int j = 0; j < packs.size(); j++) {
 
             PackageInfo p = packs.get(j);
@@ -340,6 +446,15 @@ public class HomeFrag extends Fragment {
                    }
                }
            }
+        }
+
+        if(sortF==0) {
+            Collections.sort(res, new Comparator<AppList>() {
+                @Override
+                public int compare(AppList s2, AppList s1) {
+                    return (s1.getTime().compareToIgnoreCase(s2.getTime()));
+                }
+            });
         }
         return res;
     }
