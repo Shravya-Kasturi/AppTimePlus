@@ -213,36 +213,36 @@ public class SettingsFrag extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (qw){
                     case "fbt":
-                        Toast.makeText(getActivity(),"Fb",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Facebook usage",Toast.LENGTH_SHORT).show();
                         break;
 
                     case "whatsappt":
-                        Toast.makeText(getActivity(),"Whatsapp",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Whatsapp usage",Toast.LENGTH_SHORT).show();
                         break;
 
                     case "hiket":
-                        Toast.makeText(getActivity(),"Hike",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Hike usage",Toast.LENGTH_SHORT).show();
                         break;
 
                     case "twittert":
-                        Toast.makeText(getActivity(),"Twitter",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Twitter usage",Toast.LENGTH_SHORT).show();
 
                         break;
 
                     case "instat":
-                        Toast.makeText(getActivity(),"Insta",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Instagram usage",Toast.LENGTH_SHORT).show();
 
                         break;
 
                     case "utubet":
-                        Toast.makeText(getActivity(),"Utube",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Youtube usage",Toast.LENGTH_SHORT).show();
 
                         break;
 
 
 
                     case "chromet":
-                        Toast.makeText(getActivity(),"Chrome",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Your friends Chrome usage",Toast.LENGTH_SHORT).show();
 
                         break;
 
@@ -330,7 +330,7 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(1));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }
@@ -379,7 +379,7 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(2));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }
@@ -429,7 +429,7 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(5));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }
@@ -482,7 +482,7 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(4));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }
@@ -532,7 +532,7 @@ public class SettingsFrag extends Fragment {
                             arrayList.add(k);
                         }
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(3));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }
@@ -582,7 +582,7 @@ public class SettingsFrag extends Fragment {
                         }
 
                         if (arrayList.size() > 0) {
-                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(0));
+                            appListAdapter = new AppListAdapter(getActivity(), R.layout.app_list_item, arrayList,fr,piclogo.get(6));
                             listtext.setText("");
                             listView.setAdapter(appListAdapter);
                         }

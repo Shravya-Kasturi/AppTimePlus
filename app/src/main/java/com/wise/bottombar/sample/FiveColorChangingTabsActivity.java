@@ -26,11 +26,13 @@ public class FiveColorChangingTabsActivity extends AppCompatActivity {
     Fragment fragment;
     FragmentManager fragmentManager;
     int flag = 0;
+    static int phoneCheckFlag=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_changing_tabs);
+        phoneCheckFlag=0;
         messageView = (TextView) findViewById(R.id.messageView);
         fragmentManager = getSupportFragmentManager();
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);

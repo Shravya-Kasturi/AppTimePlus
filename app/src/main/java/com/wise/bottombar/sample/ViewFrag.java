@@ -46,7 +46,7 @@ public class ViewFrag extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position)
                 {
-                    case 5:
+                    case 6:
                         progressDialog.setMessage("Signing out...");
                         progressDialog.show();
                         mAuth = FirebaseAuth.getInstance();
@@ -67,10 +67,10 @@ public class ViewFrag extends android.support.v4.app.Fragment {
                         startActivity(new Intent(getActivity(),About.class));
                         break;
 
-                    case 4:
+                    case 5:
                         Intent intent=new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
-                        String sharebody="AppTimePlus app";
+                        String sharebody="App Time Plus:- \nhttps://play.google.com/store/apps/details?id=com.wise.bottombar.sample";
                         String sharesub="";
                         intent.putExtra(Intent.EXTRA_SUBJECT,sharesub);
                         intent.putExtra(Intent.EXTRA_TEXT,sharebody);
@@ -81,6 +81,9 @@ public class ViewFrag extends android.support.v4.app.Fragment {
                         startActivity(new Intent(getActivity(),UploadPic.class));
                         break;
 
+                    case 4:
+                        startActivity(new Intent(getActivity(),AppsSelection.class));
+                        break;
 
 
                 }
@@ -93,6 +96,8 @@ public class ViewFrag extends android.support.v4.app.Fragment {
         s=new Sett(R.mipmap.friends,"Friends");
         list.add(s);
         s=new Sett(R.mipmap.about,"About");
+        list.add(s);
+        s=new Sett(R.mipmap.appscheck,"Select Apps");
         list.add(s);
         s=new Sett(R.mipmap.share,"Share");
         list.add(s);

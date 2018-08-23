@@ -28,7 +28,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -48,6 +51,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +60,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -67,7 +72,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class HomeFrag extends Fragment {
+
 
     ListView listview;
     static String Appname;
@@ -94,14 +102,43 @@ public class HomeFrag extends Fragment {
     SharedPreferences.Editor editor;
     SharedPreferences sharedpreferences1;
     SharedPreferences.Editor editor1;
+    List<AppList> installedApps;
     static int pr=0;
     long totalt=0;
     long totd=0;
     List<UsageStats> queryUsageStats;
     List<UsageStats> queryUsageStatsWeekly;
+    static ArrayList<String> uncheckedFromSP;
     @SuppressLint("ValidFragment")
     HomeFrag(){}
 
+    LayerDrawable getBorders(int bgColor, int borderColor,
+                             int left, int top, int right, int bottom){
+        // Initialize new color drawables
+        ColorDrawable borderColorDrawable = new ColorDrawable(borderColor);
+        ColorDrawable backgroundColorDrawable = new ColorDrawable(bgColor);
+
+        // Initialize a new array of drawable objects
+        Drawable[] drawables = new Drawable[]{
+                borderColorDrawable,
+                backgroundColorDrawable
+        };
+
+        // Initialize a new layer drawable instance from drawables array
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+
+        // Set padding for background color layer
+        layerDrawable.setLayerInset(
+                1, // Index of the drawable to adjust [background color layer]
+                left, // Number of pixels to add to the left bound [left border]
+                top, // Number of pixels to add to the top bound [top border]
+                right, // Number of pixels to add to the right bound [right border]
+                bottom // Number of pixels to add to the bottom bound [bottom border]
+        );
+
+        // Finally, return the one or more sided bordered background drawable
+        return layerDrawable;
+    }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
@@ -110,10 +147,19 @@ public class HomeFrag extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.needle);
         final String MyPREFERENCES = "Weekly";
         final String MyPREFERENCES1 = "Monthly";
+        final LayerDrawable bottomBorder = getBorders(
+                Color.parseColor("#edf4fb"), // Background color
+                Color.parseColor("#FF8c00"), // Border color
+                0, // Left border in pixels
+                0, // Top border in pixels
+                0, // Right border in pixels
+                12 // Bottom border in pixels
+        );
+
         NameB = (Button) (view.findViewById(R.id.NameB));
         TimeB = (Button) (view.findViewById(R.id.TimeB));
-        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        sharedpreferences1 = getActivity().getSharedPreferences(MyPREFERENCES1, Context.MODE_PRIVATE);
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        sharedpreferences1 = getActivity().getSharedPreferences(MyPREFERENCES1, MODE_PRIVATE);
         alr = (TextView) view.findViewById(R.id.comment);
         editor = sharedpreferences.edit();
         editor1 = sharedpreferences1.edit();
@@ -238,7 +284,7 @@ public class HomeFrag extends Fragment {
 
         final ListView userInstalledApps = (ListView) view.findViewById(R.id.apps_list);
 
-        final List<AppList> installedApps = getInstalledApps();
+        installedApps = getInstalledApps();
         Date now = new Date();
         Calendar calnow = Calendar.getInstance();
         calnow.setTime(now);
@@ -325,18 +371,21 @@ public class HomeFrag extends Fragment {
             databaseReference.child(FirebaseAuth.getInstance().getUid()).child("sunday").setValue("0");
         }
 
+        TimeB.setBackground(bottomBorder);
         TimeB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sortF=0;
                 tot=0;
-                NameB.setTextColor(Color.parseColor("#ffffff"));
-                NameB.setBackgroundColor(Color.parseColor("#FF8c00"));
+                NameB.setTextColor(Color.parseColor("#666666"));
+                NameB.setBackgroundColor(Color.parseColor("#edf4fb"));
                 TimeB.setTextColor(Color.parseColor("#FF8c00"));
                 TimeB.setBackgroundColor(Color.parseColor("#edf4fb"));
-                final List<AppList> TimeList = getInstalledApps();
+                TimeB.setBackground(bottomBorder);
+                NameB.setBackgroundColor(Color.parseColor("#d5dbe1"));
+                installedApps = getInstalledApps();
                 installedAppAdapter.notifyDataSetChanged();
-                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), TimeList);
+                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), installedApps);
                 userInstalledApps.setAdapter(installedAppAdapter);
             }
         });
@@ -346,14 +395,16 @@ public class HomeFrag extends Fragment {
             public void onClick(View v) {
                 sortF=1;
                 tot=0;
-               TimeB.setTextColor(Color.parseColor("#ffffff"));
-               TimeB.setBackgroundColor(Color.parseColor("#FF8c00"));
+               TimeB.setTextColor(Color.parseColor("#666666"));
+               TimeB.setBackgroundColor(Color.parseColor("#edf4fb"));
                 NameB.setTextColor(Color.parseColor("#FF8c00"));
                 NameB.setBackgroundColor(Color.parseColor("#edf4fb"));
+                NameB.setBackground(bottomBorder);
+                TimeB.setBackgroundColor(Color.parseColor("#d5dbe1"));
                 installedAppAdapter.notifyDataSetChanged();
-                final List<AppList> NameList = getInstalledApps();
+                installedApps = getInstalledApps();
                 installedAppAdapter.notifyDataSetChanged();
-                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), NameList);
+                final AppAdapter installedAppAdapter = new AppAdapter(getActivity(), installedApps);
                 userInstalledApps.setAdapter(installedAppAdapter);
             }
         });
@@ -364,6 +415,27 @@ public class HomeFrag extends Fragment {
     private List<AppList> getInstalledApps() {
         List<AppList> res = new ArrayList<AppList>();
         List<PackageInfo> packs = getActivity().getPackageManager().getInstalledPackages(0);
+
+      uncheckedFromSP =new ArrayList<String>();
+        SharedPreferences prefs = getActivity().getSharedPreferences("AppSel", MODE_PRIVATE);
+        Map<String,?> keys = prefs.getAll();
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            uncheckedFromSP.add(entry.getKey());
+        }
+        ArrayList<PackageInfo> temp=new ArrayList<PackageInfo>();
+        for(PackageInfo k:packs)
+        {
+            temp.add(k);
+        }
+        packs.clear();
+       for(PackageInfo k:temp)
+       {
+           if(!uncheckedFromSP.contains(k.packageName))
+           {
+               packs.add(k);
+           }
+       }
+
         if(sortF==1) {
             Collections.sort(packs, new Comparator<PackageInfo>() {
                 @Override
@@ -372,6 +444,7 @@ public class HomeFrag extends Fragment {
                 }
             });
         }
+
         for (int j = 0; j < packs.size(); j++) {
 
             PackageInfo p = packs.get(j);
@@ -428,8 +501,7 @@ public class HomeFrag extends Fragment {
 
                                lastseen= mDateFormat.format(new Date(seconds1));
                            }
-                       }
-                       totalt = totalt / 1000;
+                       }       totalt = totalt / 1000;
                        tot+=totalt;
                        s = totalt % 60;
                        m = (totalt / 60) % 60;
@@ -483,7 +555,7 @@ public class HomeFrag extends Fragment {
                             }
                         }
                         totalt = totalt / (1000*60);
-                        Log.d("qwe",datap.get(k)+String.valueOf(k)+String.valueOf(totalt));
+                       // Log.d("qwe",datap.get(k)+String.valueOf(k)+String.valueOf(totalt));
                         if(challt.get(k)>=totalt){
                             final int finalK = k;
                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -510,3 +582,9 @@ public class HomeFrag extends Fragment {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true : false;
     }
     }
+
+
+
+
+
+

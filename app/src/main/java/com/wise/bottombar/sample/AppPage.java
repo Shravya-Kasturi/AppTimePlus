@@ -3,6 +3,7 @@ package com.wise.bottombar.sample;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ public class AppPage extends AppCompatActivity {
     ProgressBar progressBar;
     public static final String MyPREFERENCES = "Limits" ;
    static int lim = 0;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class AppPage extends AppCompatActivity {
         setContentView(R.layout.activity_app_page);
         l=(ListView)findViewById(R.id.app_stats);
         progressBar=(ProgressBar)findViewById(R.id.progressBar2);
-        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         ImageView imageView=(ImageView)findViewById(R.id.imageView2);
         imageView.setImageDrawable(HomeFrag.Appicon);
@@ -55,6 +57,11 @@ public class AppPage extends AppCompatActivity {
                             lim = Integer.parseInt(input.getText().toString());
                             editor.putInt(HomeFrag.packn,lim);
                             editor.commit();
+                            ArrayList<EachAppStat> appItemList = new ArrayList<EachAppStat>();
+                            appItemList.add(new EachAppStat("Set Limit:",String.valueOf(sharedpreferences.getInt(HomeFrag.packn,0))+" min"));
+                            AppStatAdapter adapter = new AppStatAdapter(AppPage.this, R.layout.app_stat_item,appItemList);
+                            l.setAdapter(adapter);
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

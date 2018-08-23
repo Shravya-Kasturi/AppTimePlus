@@ -96,10 +96,15 @@ public class BlockServ extends Service {
     }
 
     public boolean showHomeScreen(){
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        /*Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApplicationContext().startActivity(startMain);
+        getApplicationContext().startActivity(startMain);*/
+
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.wise.bottombar.sample");
+        if (launchIntent != null) {
+            startActivity(launchIntent);//null pointer check in case package name was not found
+        }
         return true;
     }
 }
